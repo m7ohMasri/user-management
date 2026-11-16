@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign up</title>
+</head>
+<body>
+  <main>
+    <% if(hasError) { %>
+      <div>
+        <p><%=message%></p>
+      </div>
+    <% } %>
+  </main>
+    <form action="/reset" method="post"> 
+                <input type="hidden" name="userId" value="<%=userId%>">
+
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <div class="form_item">
+            <label for="email">email</label>
+            <input type="email" name="email" value="<% if(hasError){%><%=u.email%><%} %>">
+        </div>
+          <div class="form_item">
+           <button type="submit">reset password</button>
+        </div>
+
+    </form>
+    
+</body>
+</html>

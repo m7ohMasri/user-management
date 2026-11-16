@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/table.css">
+</head>
+<body>
+  <header> 
+       <%- include('inclued/nav.ejs')%>
+</header>
+       <% if(users.length >0) {%>
+
+    <table>
+      <thead>
+        <th>image</th>
+        <th>first name</th>
+        <th>last name</th>
+        <th>email</th>
+        <th>phone</th>
+        <th>address</th>
+        <th>Permissions</th>
+        </thead>
+        <tbody>
+          <%users.forEach(user=>{ %>
+            <tr>
+           <td><img src="<%= user.imageUrl %>" alt=""></td>
+            <td><%= user.fname %></td>
+            <td><%= user.lname %></td>
+            <td><%= user.email %></td>
+            <td><%= user.phone %></td>
+            <td><%= user.address %></td>
+            <td>
+              <%if(session.role==='admin') {%>
+                <a href="/edit/<%= user._id %>">Edit</a>
+                 <form action="/delete/<%= user._id %>" method="post">
+                   <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                <input type="submit" value="delete">
+              </form>
+               
+                
+            <%  } else if(user._id.toString()===userId.toString()){ %>
+             
+                 <a href="/edit/<%= user._id %>">Edit</a>
+                             <%  }  %>
+
+            </td>
+</tr>
+
+      <%  })  %>
+     
+        </tbody>
+    </table>
+    <% } else { %>
+        <h1>no user rigester in the system</h1>
+              <%  }  %>
+
+</body>
+</html>
